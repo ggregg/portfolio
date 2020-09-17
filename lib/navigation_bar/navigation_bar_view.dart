@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:portfolio/components/mobile_desktop_builder.dart';
 import 'package:portfolio/constants/Common.dart';
 import 'package:portfolio/constants/NavigationItem.dart';
+import 'package:portfolio/utils/components_tools.dart';
+import 'package:provider/provider.dart';
 
 class NavigationBarView extends StatelessWidget {
   @override
@@ -30,7 +32,6 @@ class NavigationBarView extends StatelessWidget {
         );
       },
       buildDesktop: (_) {
-        final onPressed = () => print('tap');
         return Container(
           height: 100,
           width: kInitWidth,
@@ -42,8 +43,16 @@ class NavigationBarView extends StatelessWidget {
                 height: 26,
               ),
               const Spacer(),
-              for (final item in kNavigationItems)
-                NavigationBarItem(text: item.text, onPressed: onPressed),
+              for (final item in kNavigationMap.values)
+                NavigationBarItem(
+                  text: item.text,
+                  onPressed: () {
+                    final y = getVerticalPosition(item.key);
+                    final scrollController = context.read<ScrollController>();
+                    scrollController.animateTo(y,
+                        duration: Duration(milliseconds: 500), curve: Curves.easeInOut);
+                  },
+                ),
             ],
           ),
         );
