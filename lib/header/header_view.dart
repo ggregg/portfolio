@@ -42,7 +42,7 @@ class HeaderDesktopView extends StatelessWidget {
                 isMobile: false,
               ),
             ),
-            Image.asset('images/visage.png', width: imageWidth),
+            Image.asset('images/visage-min.png', width: imageWidth),
           ],
         ),
       ),
